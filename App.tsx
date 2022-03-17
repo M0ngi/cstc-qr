@@ -1,6 +1,5 @@
-import { StatusBar } from 'expo-status-bar';
+import './config';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { InfoProvider } from './contexts/InfoProvider';
 import { InfoDisplay } from './screens/info_display';
@@ -16,12 +15,3 @@ export default function App() {
     </InfoProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
