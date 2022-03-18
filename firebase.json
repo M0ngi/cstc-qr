@@ -1,11 +1,10 @@
 {
-    "apiKey": "AIzaSyBQH0riI5e09XX-pEcjvhCMAQEz2gvhDMY",
-    "authDomain": "cstc-2a071.firebaseapp.com",
-    "projectId": "cstc-2a071",
-    "storageBucket": "cstc-2a071.appspot.com",
-    "messagingSenderId": "669579499696",
-    "appId": "1:669579499696:web:dab2291f0cc2886d0b8375",
-    "measurementId": "G-LYQL9V1W9K",
-    "databaseURL": "https://cstc-2a071-default-rtdb.europe-west1.firebasedatabase.app"
-
-  }
+  "apiKey": "AIzaSyBQH0riI5e09XX-pEcjvhCMAQEz2gvhDMY",
+  "authDomain": "cstc-2a071.firebaseapp.com",
+  "databaseURL": "https://cstc-2a071-default-rtdb.europe-west1.firebasedatabase.app",
+  "projectId": "cstc-2a071",
+  "storageBucket": "cstc-2a071.appspot.com",
+  "messagingSenderId": "669579499696",
+  "appId": "1:669579499696:web:2ff2b08443ba76480b8375",
+  "measurementId": "G-JTQJT809R4"
+}

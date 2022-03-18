@@ -5,8 +5,9 @@ interface ContextProps {
 }
 
 interface InfoStructure {
-    error?: String;
-    info?: String;
+    error?: string;
+    info?: string;
+    loading?: boolean;
 }
 
 const defaultContextInfo : InfoStructure = {}

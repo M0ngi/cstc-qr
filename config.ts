@@ -11,11 +11,10 @@ if(getApps().length === 0){
     appId: '635693490984759',
   });
 }
-console.log("hddi")
 
 const auth = getAuth();
-// const firestore = getFirestore();
+const firestore = getFirestore();
 // const db = getFirestore();
-// const rtdb = getDatabase();
+const rtdb = getDatabase();
 
-export { auth } // , firestore, db, rtdb };
+export { auth, firestore, rtdb } //, db };
