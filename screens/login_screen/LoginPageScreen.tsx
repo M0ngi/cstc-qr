@@ -35,7 +35,7 @@ export function LoginPageScreen () {
 
 	const dispatchInfo = useContext(InfoDispatcher);
 
-	const signUpButtonHandler = async () => {
+	const signInButtonHandler = async () => {
 		if((validEmail && validPassword)){
 			Keyboard.dismiss();
 			dispatchInfo({loading: true});
@@ -142,7 +142,7 @@ export function LoginPageScreen () {
 					onPress={forgotButtonHandler}
 				/>
 
-			<BlueButton text={"Sign in"} buttonHandler={signUpButtonHandler} />
+			<BlueButton text={"Sign in"} buttonHandler={signInButtonHandler} />
 
 			<Seperator />
 
