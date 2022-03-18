@@ -1,3 +1,4 @@
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { User } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { auth } from '../config';
@@ -8,11 +9,18 @@ import { LoginPageScreen } from '../screens/login_screen/LoginPageScreen';
 import { errorHandler } from '../services/exceptionHandler';
 import { getCurrentUserData } from '../services/firestore/userFuncs';
 import { CurrentUser } from '../utils/user';
+import { NavigationContainer } from '@react-navigation/native';
+
+const Stack = createNativeStackNavigator();
 
 function mainScreen(user : User | null) : JSX.Element{
     if(!user) return <LoginPageScreen />;
 
-    return <HomeScreen />;
+    return(
+        <Stack.Navigator initialRouteName="Home">
+            <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+        </Stack.Navigator>
+    );
 }
 
 export function Navigator() : JSX.Element{
@@ -38,7 +46,9 @@ export function Navigator() : JSX.Element{
     return (
         <>
             {
-                info.loading ? <LoadingScreen /> : mainScreen(user)
+                <NavigationContainer>
+                    {info.loading ? <LoadingScreen /> : mainScreen(user)}
+                </NavigationContainer>
             }
         </>
     );
