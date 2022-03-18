@@ -26,6 +26,10 @@ const styles = StyleSheet.create({
     buttonsView: {
         alignSelf: "center"
     },
+    logoutView:{
+        marginTop: Dimensions.get("screen").height*0.1,
+        backgroundColor: "red"
+    }
 });
 
 export default styles;

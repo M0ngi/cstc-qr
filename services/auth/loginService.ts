@@ -81,7 +81,7 @@ export async function loginUser(identifier : string, password : string){
 */
 export async function signinWithEmail(email : string, password : string) {
   const signinRes = (await signInWithEmailAndPassword(auth, email, password));
-  console.log("here")
+
   if(!signinRes) return;
   const user = signinRes.user;
 

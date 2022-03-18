@@ -47,8 +47,6 @@ class CurrentUserStructure{
     }
 
     loginJson(data : IUserData){
-        console.log("LOGIN")
-        console.log(data);
         this.user =  {...userData, ...data};
     }
 
