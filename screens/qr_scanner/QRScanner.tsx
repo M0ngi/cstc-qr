@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import { Button } from "react-native-elements";
 import { InfoDispatcher } from "../../contexts/InfoProvider";
-import { markCheckedIn } from "../../services/firestore/userFuncs";
+import { getCurrentUserData, markCheckedIn } from "../../services/firestore/userFuncs";
 import { styles } from "./styles";
 
 interface IProps {
@@ -24,11 +24,22 @@ export function QRScanner({ route } : IProps) : JSX.Element{
     })();
   }, []);
 
+  console.log(hasPermission);
+
   const handleBarCodeScanned = async ({ type, data } : {type: any; data:any}) => {
+    console.log("hhh");
     if(type !== 256) return;
     setScanned(true);
     if(route.params.scanMode === "edit"){
-      navigation.navigate("UpdateProfile", {uid:data})
+      const uData = await getCurrentUserData(data).catch((error)=>{
+        infoDispatcher({error});
+      }).then((uData)=>{
+        if(!uData) {
+          return;
+        }
+        navigation.navigate("Home"); // Force "Go back" button to pop Home
+        navigation.navigate("UpdateProfile", {userData: uData})
+      });
     }
     else{
       await markCheckedIn(data).catch((error:any)=>{
@@ -40,7 +51,6 @@ export function QRScanner({ route } : IProps) : JSX.Element{
         setScanned(false);
       }, 4000);
     }
-    console.log(`Bar code with type ${type} and data ${data} has been scanned!`);
   };
 
   if (hasPermission === null) {

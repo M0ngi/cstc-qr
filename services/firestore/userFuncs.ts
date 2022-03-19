@@ -3,7 +3,7 @@ import { setDoc, doc, getDocFromServer, runTransaction, updateDoc, collection, w
 import { FirebaseError } from '@firebase/util';
 import { ErrorCodes } from '../../const/errorCodes';
 import { USER_PATH, PHONE_EMAIL_PATH, STAFF_PATH } from './../../const/firestorePaths';
-import { CurrentUser, userData } from '../../utils/user';
+import { CurrentUser, IUserData } from '../../utils/user';
 import { signOut } from '../auth/loginService';
 
 
@@ -31,40 +31,46 @@ export async function isCurrentUserInited(){
     return (await getPath(USER_PATH+auth.currentUser.uid)).exists()
 }
 
-export async function getCurrentUserData(){
+export async function getCurrentUserData(uid: string | null = null) : Promise<IUserData>{
     if(!auth.currentUser) throw new FirebaseError(ErrorCodes.NOT_LOGGED_IN[0], ErrorCodes.NOT_LOGGED_IN[1]);
+    const target = (uid ?? auth.currentUser.uid);
 
-    let dataDoc = await getPath(USER_PATH+auth.currentUser.uid).catch(
+    console.log("getdata")
+    console.log(target);
+
+    let dataDoc = await getPath(USER_PATH+target).catch(
         ()=>{
-            signOut();
+            if(!uid) signOut();
             throw new FirebaseError(ErrorCodes.USER_DATA_NOT_FOUND[0], ErrorCodes.USER_DATA_NOT_FOUND[1])
         }
     );
     if(!dataDoc){ 
-        signOut();
+        if(!uid) signOut();
         throw new FirebaseError(ErrorCodes.USER_DATA_NOT_FOUND[0], ErrorCodes.USER_DATA_NOT_FOUND[1]);
     }
     
     let data = dataDoc.data();
     if(!data) { 
-        signOut();
+        if(!uid) signOut();
         throw new FirebaseError(ErrorCodes.USER_DATA_NOT_FOUND[0], ErrorCodes.USER_DATA_NOT_FOUND[1]);
     }
 
+    console.log("here")
+
     let phoneDoc = await getPath(PHONE_EMAIL_PATH+auth.currentUser.uid).catch(
         ()=>{
-            signOut();
+            if(!uid) signOut();
             throw new FirebaseError(ErrorCodes.USER_DATA_NOT_FOUND[0], ErrorCodes.USER_DATA_NOT_FOUND[1])
         }
     );
     if(!phoneDoc){ 
-        signOut();
+        if(!uid) signOut();
         throw new FirebaseError(ErrorCodes.USER_DATA_NOT_FOUND[0], ErrorCodes.USER_DATA_NOT_FOUND[1]);
     }
 
     let phone = phoneDoc.data();
     if(!phone) {
-        signOut();
+        if(!uid) signOut();
         throw new FirebaseError(ErrorCodes.USER_DATA_NOT_FOUND[0], ErrorCodes.USER_DATA_NOT_FOUND[1])
     }
     

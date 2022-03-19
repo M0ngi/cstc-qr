@@ -8,7 +8,7 @@ import LoadingScreen from '../screens/loading_screen/LoadingScreen';
 import { LoginPageScreen } from '../screens/login_screen/LoginPageScreen';
 import { errorHandler } from '../services/exceptionHandler';
 import { getCurrentUserData } from '../services/firestore/userFuncs';
-import { CurrentUser } from '../utils/user';
+import { CurrentUser, IUserData } from '../utils/user';
 import { NavigationContainer } from '@react-navigation/native';
 import { QRScanner } from '../screens/qr_scanner/QRScanner';
 import UpdateProfile from '../screens/update_profile/UpdateProfile';
@@ -17,7 +17,7 @@ import { setJSExceptionHandler } from "react-native-exception-handler";
 type RootStackParamList = {
     Home: undefined;
     QRScanner: {scanMode: "checkin" | "edit"  };
-    UpdateProfile: {uid : string}
+    UpdateProfile: {userData : IUserData}
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
