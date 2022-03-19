@@ -13,15 +13,17 @@ const styles = StyleSheet.create({
     },
     welcomeStyle: {
         fontSize: 20, 
-        fontWeight: "bold", 
-        marginTop: 30,
-        alignSelf: "center"
+        marginTop: 20,
+    },
+    nameStyle:{
+        fontSize: 20, 
+        fontWeight: "bold",
+        marginLeft: 15
     },
     mainContent:{
         marginTop: Dimensions.get("screen").height * 0.08,
         marginBottom: Dimensions.get("screen").height * 0.01,
         fontSize: 18,
-        fontWeight: "bold", 
     },
     buttonsView: {
         alignSelf: "center"

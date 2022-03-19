@@ -1,3 +1,5 @@
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useContext, useState } from "react";
 import { Text, View } from "react-native";
 import { Card } from "react-native-elements/dist/card/Card";
@@ -10,9 +12,14 @@ import styles from "./styles";
 
 export function HomeScreen() : JSX.Element{
     const infoDispatcher = useContext(InfoDispatcher);
+    const navigation = useNavigation();
 
     const CheckinMode = ()=>{
-
+        navigation.navigate(
+            "QRScanner", {
+                scanMode: "checkin"
+            }
+        );
     }
 
     const EditProfileMode = () =>{
@@ -28,7 +35,8 @@ export function HomeScreen() : JSX.Element{
         <>
             <Background>
                 <Card containerStyle={styles.container} >
-                    <Text style ={styles.welcomeStyle} >Welcome back, {CurrentUser.user.name?.split(' ')[0]}!</Text>
+                    <Text style={styles.welcomeStyle} >Welcome,</Text>
+                    <Text style={styles.nameStyle}>{CurrentUser.user.name?.split(' ')[0]}!</Text>
 
                     <Text style ={styles.mainContent} >Here are your tools</Text>
                     <View style={styles.buttonsView}>

@@ -10,8 +10,20 @@ import { errorHandler } from '../services/exceptionHandler';
 import { getCurrentUserData } from '../services/firestore/userFuncs';
 import { CurrentUser } from '../utils/user';
 import { NavigationContainer } from '@react-navigation/native';
+import { QRScanner } from '../screens/qr_scanner/QRScanner';
 
-const Stack = createNativeStackNavigator();
+type RootStackParamList = {
+    Home: undefined;
+    QRScanner: {scanMode: "checkin" | "edit"  };
+};
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
+
+declare global {
+    namespace ReactNavigation {
+      interface RootParamList extends RootStackParamList {}
+    }
+}
 
 function mainScreen(user : User | null) : JSX.Element{
     if(!user) return <LoginPageScreen />;
@@ -19,6 +31,7 @@ function mainScreen(user : User | null) : JSX.Element{
     return(
         <Stack.Navigator initialRouteName="Home">
             <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="QRScanner" component={QRScanner} options={{ headerShown: false }} />
         </Stack.Navigator>
     );
 }

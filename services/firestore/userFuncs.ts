@@ -109,3 +109,8 @@ export async function phoneToEmail(number:string){
     }
     return null;
 }
+
+export async function markCheckedIn(uid:string) {
+    
+    return true;
+}
