@@ -3,10 +3,19 @@ import { InfoContext, InfoDispatcher } from '../../contexts/InfoProvider';
 import { Modal, StyleSheet, Text, Pressable, View } from "react-native";
 import styles from "./style";
 
-export function InfoDisplay() : JSX.Element{
+interface IInfoDisplay {
+  error: undefined | Error;
+  resetErrorBoundary : undefined | any;
+};
+
+export function InfoDisplay({ error, resetErrorBoundary } : IInfoDisplay) : JSX.Element{
 
     const info = useContext(InfoContext);
     const dispatchInfo = useContext(InfoDispatcher);
+
+    if(error){
+      dispatchInfo({error});
+    }
 
     return(
         <Modal

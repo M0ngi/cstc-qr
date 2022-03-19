@@ -1,16 +1,24 @@
 import './config';
-import React from 'react';
+import React, { useContext } from 'react';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { InfoProvider } from './contexts/InfoProvider';
+import { InfoDispatcher, InfoProvider } from './contexts/InfoProvider';
 import { InfoDisplay } from './screens/info_display';
 import { Navigator } from './navigation';
-
+import { ErrorBoundary } from "react-error-boundary";
 export default function App() {
   return (
     <InfoProvider>
       <SafeAreaProvider>
-        <Navigator />
-        <InfoDisplay />
+        <ErrorBoundary 
+          FallbackComponent={InfoDisplay} 
+          onError={(error)=>{
+            const dispatcher = useContext(InfoDispatcher);
+            dispatcher({error})
+          }}
+        >
+          <Navigator />
+          <InfoDisplay error={undefined} resetErrorBoundary={undefined} />
+        </ErrorBoundary>
       </SafeAreaProvider>
     </InfoProvider>
   );

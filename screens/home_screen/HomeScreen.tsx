@@ -23,7 +23,11 @@ export function HomeScreen() : JSX.Element{
     }
 
     const EditProfileMode = () =>{
-        
+        navigation.navigate(
+            "QRScanner", {
+                scanMode: "edit"
+            }
+        );
     }
 
     const logoutHandler = async () =>{

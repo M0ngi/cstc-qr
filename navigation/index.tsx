@@ -2,7 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { User } from 'firebase/auth';
 import React, { useContext, useState } from 'react';
 import { auth } from '../config';
-import { InfoContext } from '../contexts/InfoProvider';
+import { InfoContext, InfoDispatcher } from '../contexts/InfoProvider';
 import { HomeScreen } from '../screens/home_screen/HomeScreen';
 import LoadingScreen from '../screens/loading_screen/LoadingScreen';
 import { LoginPageScreen } from '../screens/login_screen/LoginPageScreen';
@@ -12,6 +12,7 @@ import { CurrentUser } from '../utils/user';
 import { NavigationContainer } from '@react-navigation/native';
 import { QRScanner } from '../screens/qr_scanner/QRScanner';
 import UpdateProfile from '../screens/update_profile/UpdateProfile';
+import { setJSExceptionHandler } from "react-native-exception-handler";
 
 type RootStackParamList = {
     Home: undefined;
@@ -69,3 +70,8 @@ export function Navigator() : JSX.Element{
         </>
     );
 }
+
+setJSExceptionHandler((error, isFatal) => {
+    const infoDispatcher = useContext(InfoDispatcher);
+    infoDispatcher({error})
+  }, true);

@@ -20,5 +20,9 @@ export const ErrorCodes = {
     ERROR_LINK_PHONE: ["link-phone-error", "Unable to link phone number."],
     REGISTRATION_DISABLED:["registration-disabled", "This facebook account isn't linked to any account."],
     UNABLE_TO_FETCH_TEAMS:["unable-to-fetch-teams", "An error occured when fetching the teams."],
+
+    ACC_NOT_EXIST: ["acc-not-exist", "This user doesn't exist!"],
+    ERROR_WHEN_CHECKIN:["error-when-checkin", "An unknown error has occured when checking in."],
+
     UNKNOWN_ERROR: ["unknown-error", "An unknown error has occured."]
 }

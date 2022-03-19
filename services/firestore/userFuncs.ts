@@ -3,7 +3,7 @@ import { setDoc, doc, getDocFromServer, runTransaction, updateDoc, collection, w
 import { FirebaseError } from '@firebase/util';
 import { ErrorCodes } from '../../const/errorCodes';
 import { USER_PATH, PHONE_EMAIL_PATH } from './../../const/firestorePaths';
-import { CurrentUser } from '../../utils/user';
+import { CurrentUser, userData } from '../../utils/user';
 import { signOut } from '../auth/loginService';
 
 
@@ -111,6 +111,16 @@ export async function phoneToEmail(number:string){
 }
 
 export async function markCheckedIn(uid:string) {
-    
+    let userDoc = await getPath(USER_PATH+uid);
+    if(!userDoc.exists())
+        throw new FirebaseError(ErrorCodes.ACC_NOT_EXIST[0], ErrorCodes.ACC_NOT_EXIST[1]);
+
+    await updatePathValues(USER_PATH+uid, {checkedIn: true}).catch(
+        (err)=>{
+            console.log("check-in err");
+            console.log(err);
+            throw new FirebaseError(ErrorCodes.ERROR_WHEN_CHECKIN[0], ErrorCodes.ERROR_WHEN_CHECKIN[1]);
+        }
+    )
     return true;
 }
