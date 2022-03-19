@@ -27,11 +27,11 @@ export default function UpdateProfile ({ route } : IProps) : JSX.Element{
     }
 
     useEffect(()=>{
-        setValue("name", route.params.userData.name);
-        setValue("CIN", route.params.userData.cin);
-        setValue("phone", route.params.userData.phone);
-        setValue("address", route.params.userData.address);
-        setValue("university", route.params.userData.university);
+        setValue("name", route.params.userData.name ?? "");
+        setValue("CIN", route.params.userData.cin ?? "");
+        setValue("phone", route.params.userData.phone ?? "");
+        setValue("address", route.params.userData.address ?? "");
+        setValue("university", route.params.userData.university ?? "");
     }, [])
 
 	return (
