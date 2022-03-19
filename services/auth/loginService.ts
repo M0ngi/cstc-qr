@@ -14,6 +14,7 @@ import {
 import { 
   getCurrentUserData,
   isCurrentUserInited,
+  isStaff,
   phoneToEmail,
   updatePathValues
 } from '../firestore/userFuncs';
@@ -86,6 +87,11 @@ export async function signinWithEmail(email : string, password : string) {
   const user = signinRes.user;
 
   console.log("logged in")
+
+  if(await isStaff(user.uid) === false){
+    await auth.signOut();
+    throw new FirebaseError(ErrorCodes.NOT_AUTHED[0], ErrorCodes.NOT_AUTHED[1])
+  }
 
   let userInfo = await getCurrentUserData().catch(errorHandler);
 
@@ -175,10 +181,6 @@ export async function signinWithFacebook() : Promise<boolean>{
  * A user is verified if he verified his email OR if he have used facebook to signin.
  * 
  * @param {User} user - A firebase user.
- * 
- * @returns {boolean} - true if user is verified, else false.
- * 
- * @public
  */
 export async function isUserVerified(user : User){
   if(!user.email) return false;

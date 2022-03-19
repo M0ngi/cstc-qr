@@ -2,7 +2,7 @@ import { auth, firestore, rtdb } from './../../config'; // Init config
 import { setDoc, doc, getDocFromServer, runTransaction, updateDoc, collection, where, query, getDoc, getDocs } from 'firebase/firestore';
 import { FirebaseError } from '@firebase/util';
 import { ErrorCodes } from '../../const/errorCodes';
-import { USER_PATH, PHONE_EMAIL_PATH } from './../../const/firestorePaths';
+import { USER_PATH, PHONE_EMAIL_PATH, STAFF_PATH } from './../../const/firestorePaths';
 import { CurrentUser, userData } from '../../utils/user';
 import { signOut } from '../auth/loginService';
 
@@ -122,5 +122,13 @@ export async function markCheckedIn(uid:string) {
             throw new FirebaseError(ErrorCodes.ERROR_WHEN_CHECKIN[0], ErrorCodes.ERROR_WHEN_CHECKIN[1]);
         }
     )
+    return true;
+}
+
+export async function isStaff(uid: string):Promise<boolean>{
+    let userDoc = await getPath(STAFF_PATH+uid);
+    if(!userDoc.exists())
+        return false;
+
     return true;
 }

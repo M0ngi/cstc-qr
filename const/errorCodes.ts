@@ -24,5 +24,7 @@ export const ErrorCodes = {
     ACC_NOT_EXIST: ["acc-not-exist", "This user doesn't exist!"],
     ERROR_WHEN_CHECKIN:["error-when-checkin", "An unknown error has occured when checking in."],
 
+    NOT_AUTHED: ["not-authed-login", "You are not authorized to use this app!"],
+
     UNKNOWN_ERROR: ["unknown-error", "An unknown error has occured."]
 }
