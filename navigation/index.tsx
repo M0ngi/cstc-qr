@@ -11,10 +11,12 @@ import { getCurrentUserData } from '../services/firestore/userFuncs';
 import { CurrentUser } from '../utils/user';
 import { NavigationContainer } from '@react-navigation/native';
 import { QRScanner } from '../screens/qr_scanner/QRScanner';
+import UpdateProfile from '../screens/update_profile/UpdateProfile';
 
 type RootStackParamList = {
     Home: undefined;
     QRScanner: {scanMode: "checkin" | "edit"  };
+    UpdateProfile: {uid : string}
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -32,6 +34,7 @@ function mainScreen(user : User | null) : JSX.Element{
         <Stack.Navigator initialRouteName="Home">
             <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
             <Stack.Screen name="QRScanner" component={QRScanner} options={{ headerShown: false }} />
+            <Stack.Screen name="UpdateProfile" component={UpdateProfile} options={{ headerShown: false }} />
         </Stack.Navigator>
     );
 }
