@@ -25,5 +25,5 @@ export async function updateUserInfo(data : IUserData, target : string | null | 
     if(CurrentUser.user.phone !== data.phone)
         await updatePathValues(PHONE_EMAIL_PATH + target, {phone: data.phone});
     
-    CurrentUser.updateInfo(data);
+    if(target == auth.currentUser.uid) CurrentUser.updateInfo(data);
 }

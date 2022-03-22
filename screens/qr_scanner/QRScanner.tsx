@@ -1,5 +1,6 @@
 import { RouteProp, useNavigation } from "@react-navigation/native";
 import { BarCodeScanner } from "expo-barcode-scanner";
+import { FirebaseError } from "firebase/app";
 import React, { useContext, useEffect, useState } from "react";
 import { Text, View } from "react-native";
 import { Button } from "react-native-elements";
@@ -31,6 +32,11 @@ export function QRScanner({ route } : IProps) : JSX.Element{
     if(type !== 256) return;
     setScanned(true);
     if(route.params.scanMode === "edit"){
+      if(!data) {
+        setScanned(false);
+        infoDispatcher({error : new FirebaseError("invalid-scan", "Unable to find the user, scan again.")});
+        return;
+      }
       const uData = await getCurrentUserData(data).catch((error)=>{
         infoDispatcher({error});
       }).then((uData)=>{
