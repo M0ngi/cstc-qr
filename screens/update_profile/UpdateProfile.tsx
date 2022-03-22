@@ -22,7 +22,7 @@ export default function UpdateProfile ({ route } : IProps) : JSX.Element{
     const onSubmit = async (data : any) => { 
         console.log(data);
         dispatchInfo({loading: true})
-        await updateUserInfo(data).catch((error)=>dispatchInfo({error}))
+        await updateUserInfo(data, route.params.userData.uid).catch((error)=>dispatchInfo({error}))
         dispatchInfo({loading: false})
     }
 

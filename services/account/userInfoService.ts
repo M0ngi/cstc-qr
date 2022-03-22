@@ -15,12 +15,15 @@ import { PHONE_EMAIL_PATH, USER_PATH } from './../../const/firestorePaths';
  * 
  * @param {JSON Object} data :Data to be updated in Firestore, use {@link userData} as a format
  */
-export async function updateUserInfo(data : IUserData){
+export async function updateUserInfo(data : IUserData, target : string | null | undefined){
     if(!auth.currentUser) throw new FirebaseError(ErrorCodes.NOT_LOGGED_IN[0], ErrorCodes.NOT_LOGGED_IN[1]);
-
-    await updatePathValues(USER_PATH + auth.currentUser.uid, data);
+    if(!target){
+        target = auth.currentUser.uid;
+    }
+    
+    await updatePathValues(USER_PATH + target, data);
     if(CurrentUser.user.phone !== data.phone)
-        await updatePathValues(PHONE_EMAIL_PATH + auth.currentUser.uid, {phone: data.phone});
+        await updatePathValues(PHONE_EMAIL_PATH + target, {phone: data.phone});
     
     CurrentUser.updateInfo(data);
 }

@@ -57,7 +57,7 @@ export async function getCurrentUserData(uid: string | null = null) : Promise<IU
 
     console.log("here")
 
-    let phoneDoc = await getPath(PHONE_EMAIL_PATH+auth.currentUser.uid).catch(
+    let phoneDoc = await getPath(PHONE_EMAIL_PATH+target).catch(
         ()=>{
             if(!uid) signOut();
             throw new FirebaseError(ErrorCodes.USER_DATA_NOT_FOUND[0], ErrorCodes.USER_DATA_NOT_FOUND[1])
@@ -82,7 +82,7 @@ export async function getCurrentUserData(uid: string | null = null) : Promise<IU
         }
     }
 
-    return {...data, votedFor: null, phone: phone.phone, email: email}; // Vote isn't needed here
+    return {...data, votedFor: null, phone: phone.phone, email: email, uid: target}; // Vote isn't needed here
 }
 
 export async function readDataFromPath(path:string){
